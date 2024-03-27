@@ -1,7 +1,7 @@
 SELECT 
   CASE 
     WHEN REGEXP_REPLACE(imagem, '.*_([0-9]{9})\.tif$', '\1') IS NULL THEN 'SEM KICID' 
-    WHEN REGEXP_LIKE(imagem, '.*_[0-9]+_[0-9]+\.tif$') THEN 'KICID INCORRETO'
+    WHEN REGEXP_LIKE(imagem, '_[0-9]{9}\.tif$') THEN 'KICID INCORRETO'
     ELSE REGEXP_REPLACE(imagem, '.*_([0-9]{9})\.tif$', '\1') 
   END AS KICID_REGEX
 FROM (
