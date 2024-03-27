@@ -2,7 +2,7 @@ SELECT
   LENGTH(REGEXP_REPLACE(proc.imagem, '[^_]', '')) AS teste,
   REGEXP_INSTR(REGEXP_REPLACE(proc.imagem, '\.tif$', ''), '_[^_]*$', 1, 1, 0, 'c') AS POS,
   CASE
-    WHEN LENGTH(REGEXP_REPLACE(proc.imagem, '[^_]', '')) = 2 THEN REGEXP_REPLACE(REGEXP_SUBSTR(proc.imagem, '_[^_]*$', 1, 1), '\.tif$', '')
+    WHEN LENGTH(REGEXP_REPLACE(proc.imagem, '[^_]', '')) = 2 THEN REGEXP_REPLACE(REGEXP_SUBSTR(proc.imagem, '_([^_]*)(?:\.tif)?$', 1, 2, NULL, 1), '\.tif$', '')
     ELSE '0'
   END AS KICID_REPLACE
 FROM (
