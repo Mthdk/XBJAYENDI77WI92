@@ -1,6 +1,14 @@
-,(length(proc.imagem) - length(replace(proc.imagem, '_'))) teste
-,INSTR(replace(proc.imagem,'.tif',''),'_',-1) POS
-, CASE
-WHEN (length(proc.imagem) - length(replace(proc.imagem, '_'))) = 2 THEN replace(substr(proc.imagem,(INSTR(replace(proc.imagem,'.tif',''),'_',-1))+1,100),'.tif','')
-ELSE '0'
-END KICID_REPLACE
+WITH RecursiveIterator AS (
+  SELECT 1 AS IteratorValue
+  FROM dual
+  UNION ALL
+  SELECT IteratorValue + 1
+  FROM RecursiveIterator
+  WHERE IteratorValue < (SELECT MAX(SeuCampoNumerico) FROM SuaTabela)
+), MaxValue AS (
+  SELECT MAX(SeuCampoNumerico) AS MaxValue
+  FROM SuaTabela
+)
+SELECT IteratorValue
+FROM RecursiveIterator, MaxValue
+WHERE IteratorValue <= MaxValue;
